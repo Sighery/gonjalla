@@ -2,6 +2,9 @@ package gonjalla
 
 import "encoding/json"
 
+// ValidTTL is an array containing all the valid TTL values
+var ValidTTL = []int{60, 300, 900, 3600, 10800, 21600, 86400}
+
 // Record struct contains data returned by `list-records`
 type Record struct {
 	ID       int    `json:"id"`
