@@ -5,6 +5,9 @@ import "encoding/json"
 // ValidTTL is an array containing all the valid TTL values
 var ValidTTL = []int{60, 300, 900, 3600, 10800, 21600, 86400}
 
+// ValidPriority is an array containing all the valid Priority values
+var ValidPriority = []int{0, 1, 5, 10, 20, 30, 40, 50, 60}
+
 // Record struct contains data returned by `list-records`
 type Record struct {
 	ID       int    `json:"id"`
