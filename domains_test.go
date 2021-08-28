@@ -161,3 +161,101 @@ func TestGetDomainError(t *testing.T) {
 	_, err := GetDomain(token, domain)
 	assert.Error(t, err)
 }
+
+func TestFindDomainsExpected(t *testing.T) {
+	token := "test-token"
+	query := "testing"
+	Client = &mocks.MockClient{}
+
+	testData := `{
+		"result": {
+			"jsonrpc": "2.0",
+			"domains": [
+				{
+					"name": "testing.com",
+					"status": "taken",
+					"price": 45
+				},
+				{
+					"name": "testing.net",
+					"status": "available",
+					"price": 30
+				},
+				{
+					"name": "testing.rocks",
+					"status": "in progress",
+					"price": 15
+				},
+				{
+					"name": "testing.express",
+					"status": "failed",
+					"price": 75
+				}
+			]
+		}
+	}`
+	r := ioutil.NopCloser(bytes.NewReader([]byte(testData)))
+
+	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
+		return &http.Response{
+			StatusCode: 200,
+			Body:       r,
+		}, nil
+	}
+
+	domains, err := FindDomains(token, query)
+	if err != nil {
+		t.Error(err)
+	}
+
+	expected := []MarketDomain{
+		{
+			Name:   "testing.com",
+			Status: "taken",
+			Price:  45,
+		},
+		{
+			Name:   "testing.net",
+			Status: "available",
+			Price:  30,
+		},
+		{
+			Name:   "testing.rocks",
+			Status: "in progress",
+			Price:  15,
+		},
+		{
+			Name:   "testing.express",
+			Status: "failed",
+			Price:  75,
+		},
+	}
+
+	assert.Equal(t, domains, expected)
+}
+
+func TestFindDomainsError(t *testing.T) {
+	token := "test-token"
+	query := "testing"
+	Client = &mocks.MockClient{}
+
+	testData := `{
+		"jsonrpc": "2.0",
+		"error": {
+			"code": 0,
+			"message": "Testing error"
+		}
+	}`
+	r := ioutil.NopCloser(bytes.NewReader([]byte(testData)))
+
+	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
+		return &http.Response{
+			StatusCode: 200,
+			Body:       r,
+		}, nil
+	}
+
+	domains, err := FindDomains(token, query)
+	assert.Nil(t, domains)
+	assert.Error(t, err)
+}

@@ -15,6 +15,13 @@ type Domain struct {
 	MaxNameservers *int      `json:"max_nameservers,omitempty"`
 }
 
+// Domain availability and price data returned by `find-domains`
+type MarketDomain struct {
+	Name   string `json:"name"`
+	Status string `json:"status"`
+	Price  int    `json:"price"`
+}
+
 // ListDomains returns a listing of domains with minimal data
 func ListDomains(token string) ([]Domain, error) {
 	params := map[string]interface{}{}
@@ -55,4 +62,30 @@ func GetDomain(token string, domain string) (Domain, error) {
 	}
 
 	return domainStruct, nil
+}
+
+// FindDomains returns availability and price information for a query.
+// If query was `example`, then it'd show availability and price of
+// domains `example.com`, `example.net`, etc.
+func FindDomains(token string, query string) ([]MarketDomain, error) {
+	params := map[string]interface{}{
+		"query": query,
+	}
+
+	data, err := Request(token, "find-domains", params)
+	if err != nil {
+		return nil, err
+	}
+
+	type Response struct {
+		Domains []MarketDomain `json:"domains"`
+	}
+
+	var response Response
+	err = json.Unmarshal(data, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Domains, nil
 }
