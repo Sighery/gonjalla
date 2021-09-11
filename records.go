@@ -94,6 +94,10 @@ func RemoveRecord(token string, domain string, id int) error {
 // its filled fields to send to Njalla.
 // So, if you want to only change a given field, get the `Record` object from
 // say ListRecords, change the one field you want, and then pass that here.
+//
+// Note that the record type cannot be changed, so if you want to do so, you'll
+// have to remove and create the record again under a different type. Trying to
+// change the record type will just return an API error.
 func EditRecord(token string, domain string, record Record) error {
 	marshal, err := json.Marshal(record)
 	if err != nil {
