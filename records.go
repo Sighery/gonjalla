@@ -10,7 +10,7 @@ var ValidPriority = []int{0, 1, 5, 10, 20, 30, 40, 50, 60}
 
 // Record struct contains data returned by `list-records`
 type Record struct {
-	ID       int    `json:"id"`
+	ID       string `json:"id"`
 	Name     string `json:"name"`
 	Type     string `json:"type"`
 	Content  string `json:"content"`
@@ -75,7 +75,7 @@ func AddRecord(token string, domain string, record Record) (Record, error) {
 
 // RemoveRecord removes a given record from a given domain.
 // If there are no errors it will return `nil`.
-func RemoveRecord(token string, domain string, id int) error {
+func RemoveRecord(token string, domain string, id string) error {
 	params := map[string]interface{}{
 		"domain": domain,
 		"id": id,
