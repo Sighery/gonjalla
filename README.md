@@ -12,6 +12,16 @@ are:
 * `edit-record`
 * `remove-record`
 * `find-domains`
+* `check-task`
+* `register-domain`
+* `list-servers`
+* `list-server-images`
+* `list-server-types`
+* `stop-server`
+* `restart-server`
+* `reset-server`
+* `add-server`
+* `remove-server`
 
 **TO NOTE**: Even though `record` methods are implemented, I'm fairly certain
 they'll fail (silently or not) in some cases. I deal mostly with `TXT`, `MX`,
@@ -20,12 +30,12 @@ since I don't use them I decided against implementing them. Chances are the
 methods will fail when trying to deal with those types of records (like `SSH`
 records).
 
-The code is fairly simple, and all the methods are tested by using mocks on
+The code is fairly simple, and most methods are tested by using mocks on
 the API request. The mocked returned data is based on the same data the API
 returns.
 
-These methods cover my needs, but feel free to send in a PR to add more (or to
-cover all types of DNS records), as long as they're all tested and documented.
+Feel free to send in a PR to add more (or to cover all types of DNS records),
+as long as they're tested and documented.
 
 ### Usage
 
