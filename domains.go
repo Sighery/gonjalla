@@ -102,8 +102,8 @@ func CheckTask(token string, id string) (string, error) {
 	}
 
 	type Response struct {
-		id string `json:"id"`
-		status string  `json:"status"`
+		id     string `json:"id"`
+		status string `json:"status"`
 	}
 
 	var response Response
@@ -116,10 +116,10 @@ func CheckTask(token string, id string) (string, error) {
 }
 
 // Registers a domain given a domain name and desired term length
-func RegisterDomain(token string, domain string, years int) (error) {
+func RegisterDomain(token string, domain string, years int) error {
 	params := map[string]interface{}{
 		"domain": domain,
-		"years": years,
+		"years":  years,
 	}
 
 	data, err := Request(token, "register-domain", params)
@@ -153,4 +153,3 @@ func RegisterDomain(token string, domain string, years int) (error) {
 
 	return nil
 }
-

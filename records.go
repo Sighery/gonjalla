@@ -78,7 +78,7 @@ func AddRecord(token string, domain string, record Record) (Record, error) {
 func RemoveRecord(token string, domain string, id string) error {
 	params := map[string]interface{}{
 		"domain": domain,
-		"id": id,
+		"id":     id,
 	}
 
 	_, err := Request(token, "remove-record", params)

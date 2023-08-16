@@ -294,11 +294,11 @@ func TestEditRecordExpected(t *testing.T) {
 
 	priority := 10
 	editing := Record{
-		ID: "1337",
-		Name: "@",
-		Type: "MX",
-		Content: "testing.com",
-		TTL: 10800,
+		ID:       "1337",
+		Name:     "@",
+		Type:     "MX",
+		Content:  "testing.com",
+		TTL:      10800,
 		Priority: &priority,
 	}
 
@@ -329,11 +329,11 @@ func TestEditRecordError(t *testing.T) {
 
 	priority := 10
 	editing := Record{
-		ID: "1337",
-		Name: "@",
-		Type: "MX",
-		Content: "testing.com",
-		TTL: 10800,
+		ID:       "1337",
+		Name:     "@",
+		Type:     "MX",
+		Content:  "testing.com",
+		TTL:      10800,
 		Priority: &priority,
 	}
 

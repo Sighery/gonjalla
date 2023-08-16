@@ -151,10 +151,10 @@ func RestartServer(token string, id string) (Server, error) {
 // ResetServer resets a server with new server settings.  Server data WILL be destroyed
 func ResetServer(token string, id string, os string, publicKey string, instanceType string) (Server, error) {
 	params := map[string]interface{}{
-		"id": id,
-		"os": os,
+		"id":      id,
+		"os":      os,
 		"ssh_key": publicKey,
-		"type": instanceType,
+		"type":    instanceType,
 	}
 
 	var server Server
@@ -175,11 +175,11 @@ func ResetServer(token string, id string, os string, publicKey string, instanceT
 // AddServer creates a new server.
 func AddServer(token string, name string, instanceType string, os string, publicKey string, months int) (Server, error) {
 	params := map[string]interface{}{
-		"name": name,
-		"type": instanceType,
-		"os": os,
+		"name":    name,
+		"type":    instanceType,
+		"os":      os,
 		"ssh_key": publicKey,
-		"months": months,
+		"months":  months,
 	}
 
 	var server Server
